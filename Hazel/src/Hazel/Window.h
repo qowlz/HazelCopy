@@ -24,7 +24,7 @@ namespace Hazel {
 	class HAZEL_API Window
 	{
 	public:
-		using EventCallbackFn = std::function<void(Event&)>;
+		using EventCallbackFn = std::function<void(Event&)>; // typedef ret type: void, param type : Event&
 
 		virtual ~Window() = default;
 
@@ -34,11 +34,11 @@ namespace Hazel {
 		virtual uint32_t GetHeight() const = 0;
 
 		// Window attributes
-		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
+		virtual void SetEventCallback(const EventCallbackFn& callback) = 0; // 자식 클래스의 callback fnc 호출
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;
 
-		static Window* Create(const WindowProps& props = WindowProps());
+		static Window* Create(const WindowProps& props = WindowProps()); // 구조체 default value 레퍼런스
 	};
 
 }
