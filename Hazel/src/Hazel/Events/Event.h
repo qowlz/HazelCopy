@@ -37,7 +37,7 @@ namespace Hazel {
 
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
-	class Event
+	class HAZEL_API Event
 	{
 	public:
 		virtual ~Event() = default;
@@ -78,7 +78,7 @@ namespace Hazel {
 		Event& m_Event;
 	};
 
-	inline std::ostream& operator << (std::ostream& os, const Event& e)
+	inline std::ostream& operator<<(std::ostream& os, const Event& e)
 	{
 		return os << e.ToString();
 	}
