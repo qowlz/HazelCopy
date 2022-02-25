@@ -9,7 +9,12 @@ workspace "Hazel" --Solution Name
 		"Dist"
 	}
 	
-outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}" 
+outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
+IncludeDir = {}
+IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
+
+include "Hazel/vendor/GLFW"
 
 project "Hazel"
 	location "Hazel"
@@ -18,6 +23,9 @@ project "Hazel"
 	
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	pchheader "hzpch.h"
+	pchsource "Hazel/src/hzpch.cpp"
 	
 	files
 	{
@@ -27,7 +35,15 @@ project "Hazel"
 	
 	includedirs --included libraries
 	{
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/src",
+		"%{prj.name}/vendor/spdlog/include",
+		"%includeDir.GLFW"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 	
 	filter "system:windows"
